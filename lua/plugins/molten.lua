@@ -6,6 +6,9 @@
 return {
   {
     "3rd/image.nvim",
+    -- No luarocks build: we use the `magick` CLI (processor below), not the
+    -- magick Lua rock, so skip the rockspec step that fails on hosts without luarocks.
+    build = false,
     opts = {
       backend = "kitty",
       processor = "magick_cli",
