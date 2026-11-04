@@ -10,3 +10,7 @@ vim.g.lazyvim_python_ruff = "ruff"
 -- molten-nvim's remote plugin needs a python with pynvim + jupyter_client;
 -- pin it so it doesn't drift with whatever env is active in the shell
 vim.g.python3_host_prog = vim.fn.expand("~/.local/share/nvim/venv/bin/python")
+
+-- Copilot: show suggestions as gray inline ghost text (Tab accepts) instead of
+-- as entries in the completion menu.
+vim.g.ai_cmp = false
