@@ -9,7 +9,12 @@ ARCH="$(uname -m)"; case "$ARCH" in x86_64) NV=nvim-linux-x86_64;; aarch64|arm64
 echo "==> 1/6 system packages"
 sudo apt-get update -qq
 sudo apt-get install -y -qq git curl build-essential ripgrep fd-find fzf unzip \
-  nodejs npm python3 python3-venv python3-pip imagemagick clangd
+  nodejs npm python3 python3-venv python3-pip imagemagick ghostscript clangd
+
+# Ubuntu's ImageMagick policy may block PDF rendering; allow read/write for PDF.
+for pol in /etc/ImageMagick-6/policy.xml /etc/ImageMagick-7/policy.xml; do
+  [ -f "$pol" ] && sudo sed -i -E 's#rights="none" pattern="PDF"#rights="read|write" pattern="PDF"#' "$pol"
+done
 
 echo "==> 2/6 neovim (latest release tarball; apt's is too old for LazyVim)"
 curl -fsSLo /tmp/$NV.tar.gz "https://github.com/neovim/neovim/releases/latest/download/$NV.tar.gz"
